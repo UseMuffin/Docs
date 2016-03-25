@@ -99,7 +99,7 @@ switch (strtolower($_SERVER['HTTP_X_GITHUB_EVENT'])) {
                 file_get_contents($config . '/site_subdirectories.yaml'),
                 'Muffin/' . $payload['repository']['name'],
                 $payload['repository']['description']
-            );
+            ));
         }
 
         echo implode("\n", $output);
