@@ -16,6 +16,8 @@ logs/*
 !logs/.*
 images/*
 !images/.*
+packages/*
+!packages/.*
 user/accounts/*
 !user/accounts/.*
 user/plugins/*
