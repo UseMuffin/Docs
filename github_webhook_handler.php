@@ -36,7 +36,7 @@ if ($hookSecret !== NULL) {
 
     $rawPost = file_get_contents('php://input');
     $hashedPost = hash_hmac($algo, $rawPost, $hookSecret);
-    if ((version_compare(PHP_VERSION, '5.6', '>=') && hash_equals($hash, $hashedPost)) || $hash !== $hashedPost) {
+    if ((version_compare(PHP_VERSION, '5.6', '>=') && !hash_equals($hash, $hashedPost)) || $hash !== $hashedPost) {
         throw new \Exception('Hook secret does not match.');
     }
 };
