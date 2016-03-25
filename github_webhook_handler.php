@@ -73,7 +73,6 @@ switch (strtolower($_SERVER['HTTP_X_GITHUB_EVENT'])) {
         $output = [];
         $dir = __DIR__;
         $repo = strtolower($payload['repository']['name']);
-        $link = $dir . '/user/sites/' . $repo;
 
         if ($repo !== 'docs') {
             $dir .= '/packages/' . $repo;
@@ -87,11 +86,20 @@ switch (strtolower($_SERVER['HTTP_X_GITHUB_EVENT'])) {
         }
 
         $target = $dir . '/docs';
+        $site = $dir . '/user/sites/' . $repo;
+        $config = $dir . '/user/config';
         if ($repo !== 'docs'
             && file_exists($target)
-            && !file_exists($link)
+            && !file_exists($site)
         ) {
-            symlink($dir . '/docs', $link);
+            shell_exec('mkdir -p ' . $site . '/config');
+            symlink($dir . '/docs', $link . '/pages');
+            symlink($config . '/system_subdirectories.yaml', $site . '/config/.');
+            file_put_contents($site . '/config/site.yaml', sprintf(
+                file_get_contents($config . '/site_subdirectories.yaml'),
+                'Muffin/' . $payload['repository']['name'],
+                $payload['repository']['description']
+            );
         }
 
         echo implode("\n", $output);
