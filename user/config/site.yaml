@@ -1,7 +1,4 @@
-title: UseMuffin
-author:
-  name: Jad Bitar
-  email: 'jadb@cakephp.org'
+title: Muffin
 metadata:
-    description: 'Grav is an easy to use, yet powerful, open source flat-file CMS'
+    description: 'Plugins for CakePHP 3'
 
