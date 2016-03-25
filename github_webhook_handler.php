@@ -70,7 +70,31 @@ switch (strtolower($_SERVER['HTTP_X_GITHUB_EVENT'])) {
         break;
 
     case 'push':
-        echo shell_exec('cd ' . __DIR__ . ' && git pull');
+        $output = [];
+        $dir = __DIR__;
+        $repo = strtolower($payload['repository']['name']);
+        $link = $dir . '/user/sites/' . $repo;
+
+        if ($repo !== 'docs') {
+            $dir .= '/packages/' . $repo;
+        }
+
+        if (!file_exists($dir)) {
+            $url = 'https://github.com/usemuffin/' . $repo . '.git';
+            exec('cd ' . __DIR__ . '/packages && git clone ' . $url, $output);
+        } else {
+            exec('cd ' . $dir . ' && git pull', $output);
+        }
+
+        $target = $dir . '/docs';
+        if ($repo !== 'docs'
+            && file_exists($target)
+            && !file_exists($link)
+        ) {
+            symlink($dir . '/docs', $link);
+        }
+
+        echo implode("\n", $output);
         break;
 
 //  case 'create':
