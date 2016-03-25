@@ -86,15 +86,15 @@ switch (strtolower($_SERVER['HTTP_X_GITHUB_EVENT'])) {
         }
 
         $target = $dir . '/docs';
-        $site = $dir . '/user/sites/' . $repo;
-        $config = $dir . '/user/config';
+        $site = __DIR__ . '/user/sites/' . $repo;
+        $config = __DIR__ . '/user/config';
         if ($repo !== 'docs'
             && file_exists($target)
             && !file_exists($site)
         ) {
             shell_exec('mkdir -p ' . $site . '/config');
             symlink($dir . '/docs', $site . '/pages');
-            symlink($config . '/system_subdirectories.yaml', $site . '/config/.');
+            symlink($config . '/system_subdirectories.yaml', $site . '/config/system.yaml');
             file_put_contents($site . '/config/site.yaml', sprintf(
                 file_get_contents($config . '/site_subdirectories.yaml'),
                 'Muffin/' . $payload['repository']['name'],
