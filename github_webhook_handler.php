@@ -93,7 +93,7 @@ switch (strtolower($_SERVER['HTTP_X_GITHUB_EVENT'])) {
             && !file_exists($site)
         ) {
             shell_exec('mkdir -p ' . $site . '/config');
-            symlink($dir . '/docs', $link . '/pages');
+            symlink($dir . '/docs', $site . '/pages');
             symlink($config . '/system_subdirectories.yaml', $site . '/config/.');
             file_put_contents($site . '/config/site.yaml', sprintf(
                 file_get_contents($config . '/site_subdirectories.yaml'),
