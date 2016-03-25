@@ -4,6 +4,7 @@
 
 - PHP 5.5.9 or higher. Check the [required modules list](http://learn.getgrav.org/basics/requirements#php-requirements)
 - Check the [Apache](http://learn.getgrav.org/basics/requirements#apache-requirements) requirements
+- The `GITHUB_WEBHOOK_SECRET` environment variable defined for auto-deployments
 
 ## QuickStart
 
